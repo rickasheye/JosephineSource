@@ -13,5 +13,15 @@ namespace ChatBotProject.Misc.SnailRaceDemoGame
             //Run the snail game!
             Console.WriteLine("The snail game has been called!");
         }
+
+        public override void InitialiseGame()
+        {
+            base.InitialiseGame();
+        }
+
+        public override void DestroyGame()
+        {
+            base.DestroyGame();
+        }
     }
 }

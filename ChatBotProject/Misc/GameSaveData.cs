@@ -10,5 +10,6 @@ namespace ChatBotProject
     {
         //This is the base class for all game save data to attach to user profiles!
         public bool running;
+        public ulong userID;
     }
 }
