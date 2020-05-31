@@ -63,10 +63,10 @@ artifacts/
 StyleCopReport.xml
 
 #Config
-config.json
+[Cc]onfig.json
 
 #Prefs
-prefs.json
+[Pp]refs.json
 
 # Files built by Visual Studio
 *_i.c
