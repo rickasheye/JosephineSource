@@ -20,7 +20,8 @@ namespace ChatBotProject
         [Command("game")] // let's define this method as a command
         [Description("Pick a game!")] // this will be displayed to tell users what this command does when they invoke help
         [Aliases("games")] // alternative names for the command
-        public async Task Ping(CommandContext ctx, params string[] args) // this command takes no arguments
+        [Hidden]
+        public async Task Game(CommandContext ctx, params string[] args) // this command takes no arguments
         {
             await base.OperateCommand(ctx);
             //Which game would you like to pick

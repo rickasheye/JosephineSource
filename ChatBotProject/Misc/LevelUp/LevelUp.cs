@@ -41,7 +41,7 @@ namespace ChatBotProject.Misc.LevelUp
                     //Game save does not exist!
                     //Create a file and reload!
                     File.WriteAllText(levelupConfig, "", new UTF8Encoding(false));
-                    Console.WriteLine("No zombie config found so one was created! core is now reloading!");
+                    Console.WriteLine("No level up config found so one was created! core is now reloading!");
                     InitialiseGame();
                 }
             }
@@ -57,6 +57,26 @@ namespace ChatBotProject.Misc.LevelUp
         public override void DestroyGame()
         {
             base.DestroyGame();
+            //Save the game save data mainly!!!!
+            //Stop the game
+            //This is when the game gets destroyed please delete or save what you need!
+            Console.WriteLine("Stopping... Level up game!!!");
+            //When the game gets initialised! we want to load the save files!
+            string Config = Path.Combine(Directory.GetCurrentDirectory(), "levelup.json");
+            if (File.Exists(Config))
+            {
+                //Game save does exist find the file and load it!
+                File.WriteAllText(Config, JsonConvert.SerializeObject(Config));
+                Console.WriteLine("Saved all the saves!");
+            }
+            else
+            {
+                //Game save does not exist!
+                //Create a file and reload!
+                File.WriteAllText(Config, "{}");
+                Console.WriteLine("No levelup config found so one was created!");
+                //InitialiseGame();
+            }
         }
 
         public override void UpdateChatGame(MessageCreateEventArgs e)
@@ -66,6 +86,7 @@ namespace ChatBotProject.Misc.LevelUp
             if(gameRunning == true)
             {
                 //The game is running count up player score and match it!
+
             }
         }
     }

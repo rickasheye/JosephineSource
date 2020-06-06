@@ -18,6 +18,8 @@ using DSharpPlus.VoiceNext;
 using Microsoft.Extensions.DependencyInjection;
 using ChatBotProject.Misc;
 using ChatBotProject.Misc.ZombieDemoGame;
+using ChatBotProject.Misc.LevelUp;
+using ChatBotProject.Misc.SnailRaceDemoGame;
 
 namespace ChatBotProject
 {
@@ -40,6 +42,7 @@ namespace ChatBotProject
 
         public JosephineBot(JosephineConfig cfg, int shardid)
         {
+            Updater update = new Updater();
             Config = cfg;
 
             var dcfg = new DiscordConfiguration
@@ -113,9 +116,12 @@ namespace ChatBotProject
         public async Task StopAsync()
         {
             Debug.Warning("Stopping Server!!!", Discord);
-            foreach(Game m in games)
+            if (games != null)
             {
-                m.DestroyGame();
+                foreach (Game m in games)
+                {
+                    m.DestroyGame();
+                } 
             }
             Debug.Warning("Writing log file", Discord);
             File.WriteAllLines(Path.Combine(Directory.GetCurrentDirectory(), "log"), logFile.ToArray());
@@ -356,12 +362,17 @@ namespace ChatBotProject
             }
 
             //Start all the games
-            games.Add(new ZombieGame());
+            //games.Add(new ZombieGame());
+            //games.Add(new LevelUpGame());
+            //games.Add(new SnailGame());
 
-            //Loading all the games
-            foreach(Game game in games)
+            if (games != null)
             {
-                game.InitialiseGame();
+                //Loading all the games
+                foreach (Game game in games)
+                {
+                    game.InitialiseGame();
+                } 
             }
 
             // let's log the fact that this event occured

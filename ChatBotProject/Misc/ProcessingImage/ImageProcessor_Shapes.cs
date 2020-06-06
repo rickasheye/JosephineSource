@@ -1,11 +1,13 @@
-﻿using System;
+﻿using ChatBotProject.Misc.GameStuff;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Rectangle = ChatBotProject.Misc.GameStuff.Rectangle;
 
-namespace ChatBotProject.Misc.GameStuff
+namespace ChatBotProject.Misc.ProcessingImage
 {
     public class ImageProcessor_Shapes : ImageProcessor
     {

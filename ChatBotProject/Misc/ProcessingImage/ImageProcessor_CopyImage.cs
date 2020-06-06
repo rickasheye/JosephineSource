@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChatBotProject.Misc.GameStuff;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChatBotProject.Misc.GameStuff
+namespace ChatBotProject.Misc.ProcessingImage
 {
     public class ImageProcessor_CopyImage : ImageProcessor
     {

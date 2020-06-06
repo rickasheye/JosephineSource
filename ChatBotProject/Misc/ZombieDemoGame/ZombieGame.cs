@@ -209,18 +209,62 @@ namespace ChatBotProject.Misc.ZombieDemoGame
             return zombiePicked;
         }
 
-        public override void InitialiseGame(string gameName, List<GameSaveData> data)
+        public override void InitialiseGame()
         {
-            gameName = "Zombie Game";
-            base.InitialiseGame(gameName, data);
-            //convert it back bitch
-            //savesInGame.AddRange(data);
+            base.InitialiseGame();
+            try
+            {
+                Console.WriteLine("Loading... Zombie Game!!!");
+                //When the game gets initialised! we want to load the save files!
+                string Config = Path.Combine(Directory.GetCurrentDirectory(), "zombie.json");
+                if (File.Exists(Config))
+                {
+                    //Game save does exist find the file and load it!
+                    var loadFile = File.ReadAllText(Config, new UTF8Encoding(false));
+                    savesInGame.AddRange(JsonConvert.DeserializeObject<List<PlayerSave_Zombie>>(loadFile));
+                }
+                else
+                {
+                    //Game save does not exist!
+                    //Create a file and reload!
+                    File.WriteAllText(Config, "{}", new UTF8Encoding(false));
+                    Console.WriteLine("No Zombie Game config found so one was created! core is now reloading!");
+                    InitialiseGame();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("fucking retarded piece of shit fuck!");
+                Console.WriteLine(e);
+                //See if deleting the file works!
+                File.Delete(Path.Combine(Directory.GetCurrentDirectory(), "zombie.json"));
+                InitialiseGame();
+            }
         }
 
-        public override void DestroyGame(string gameName)
+        public override void DestroyGame()
         {
-            gameName = "Zombie Game";
-            base.DestroyGame(gameName);
+            base.DestroyGame();
+            //Save the game save data mainly!!!!
+            //Stop the game
+            //This is when the game gets destroyed please delete or save what you need!
+            Console.WriteLine("Stopping... Zombie Game!!!");
+            //When the game gets initialised! we want to load the save files!
+            string Config = Path.Combine(Directory.GetCurrentDirectory(), "zombie.json");
+            if (File.Exists(Config))
+            {
+                //Game save does exist find the file and load it!
+                File.WriteAllText(Config, JsonConvert.SerializeObject(Config));
+                Console.WriteLine("Saved all the saves!");
+            }
+            else
+            {
+                //Game save does not exist!
+                //Create a file and reload!
+                File.WriteAllText(Config, "{}");
+                Console.WriteLine("No Zombie Game config found so one was created!");
+                //InitialiseGame();
+            }
         }
 
         public bool CheckPlayerExists(List<PlayerSave_Zombie> saves, ulong userID)

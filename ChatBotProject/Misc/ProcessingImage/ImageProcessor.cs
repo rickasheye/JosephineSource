@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChatBotProject.Misc.GameStuff
+namespace ChatBotProject.Misc.ProcessingImage
 {
     public class ImageProcessor
     {
