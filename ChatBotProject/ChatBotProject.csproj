@@ -196,7 +196,6 @@
     <Compile Include="Updater.cs" />
     <Compile Include="UserData.cs" />
     <Compile Include="Utils.cs" />
-    <Compile Include="WebServerModule.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
