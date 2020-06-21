@@ -14,6 +14,11 @@ namespace ChatBotProject
             client.DebugLogger.LogMessage(LogLevel.Debug, JosephineBot.BotName, message, DateTime.Now);
         }
 
+        public static void Log(string message)
+        {
+            JosephineBot.Discord.DebugLogger.LogMessage(LogLevel.Debug, JosephineBot.BotName, message, DateTime.Now);
+        }
+
         public static void Warning(string message, DiscordClient client)
         {
             client.DebugLogger.LogMessage(LogLevel.Warning, JosephineBot.BotName, message, DateTime.Now);

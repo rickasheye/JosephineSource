@@ -154,11 +154,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChatBotModuleArkadius.cs" />
     <Compile Include="Commands\channelcommand.cs" />
     <Compile Include="Commands\CommandModule.cs" />
     <Compile Include="Commands\evalcommand.cs" />
-    <Compile Include="Commands\gamecommand.cs" />
+    <Compile Include="Commands\mathcommand.cs" />
+    <Compile Include="Commands\memetemplatecommand.cs" />
     <Compile Include="Debug.cs" />
     <Compile Include="Misc\GameSaveData.cs" />
     <Compile Include="guildData.cs" />
@@ -173,6 +173,10 @@
     <Compile Include="Misc\Achievement.cs" />
     <Compile Include="Misc\Game.cs" />
     <Compile Include="Misc\GameStuff\Color32.cs" />
+    <Compile Include="Misc\MathOperation.cs" />
+    <Compile Include="Misc\Meme.cs" />
+    <Compile Include="Misc\MessageContainer.cs" />
+    <Compile Include="Misc\MessageHandler.cs" />
     <Compile Include="Misc\ProcessingImage\ImageProcessor.cs" />
     <Compile Include="Misc\ProcessingImage\ImageProcessor_CopyImage.cs" />
     <Compile Include="Misc\ProcessingImage\ImageProcessor_Shapes.cs" />
@@ -192,6 +196,7 @@
     <Compile Include="Updater.cs" />
     <Compile Include="UserData.cs" />
     <Compile Include="Utils.cs" />
+    <Compile Include="WebServerModule.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

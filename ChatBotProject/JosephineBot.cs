@@ -27,7 +27,7 @@ namespace ChatBotProject
     {
         ChatBot bot;
         public static JosephineConfig Config { get; set; }
-        public DiscordClient Discord { get; }
+        public static DiscordClient Discord { get; set; }
         private pingcommand Commands { get; }
         private CommandsNextExtension CommandsNextService { get; }
         private Timer GameGuard { get; set; }
@@ -186,7 +186,7 @@ namespace ChatBotProject
                 tag = tag.PadLeft(12, ' ');
             Console.Write("[{0}] ", tag);
 
-            Console.Write("[{0}] ", string.Concat("SHARD ", this.Discord.ShardId.ToString("00")));
+            Console.Write("[{0}] ", string.Concat("SHARD ", Discord.ShardId.ToString("00")));
 
             Console.Write("[{0}] ", e.Level.ToString().PadLeft(8));
 
@@ -373,6 +373,11 @@ namespace ChatBotProject
                 {
                     game.InitialiseGame();
                 } 
+            }
+
+            if (BotName != Discord.CurrentUser.Username)
+            {
+                BotName = Discord.CurrentUser.Username;
             }
 
             // let's log the fact that this event occured

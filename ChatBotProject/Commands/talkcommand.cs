@@ -13,6 +13,7 @@ namespace ChatBotProject
     {
         [Command("talk")] // let's define this method as a command
         [Description("Turn on or off the ChatBot")] // this will be displayed to tell users what this command does when they invoke help
+        [RequireBotPermissions(DSharpPlus.Permissions.Administrator)]
         public override async Task OperateCommand(CommandContext ctx, params string[] args) // this command takes no arguments
         {
             await base.OperateCommand(ctx);
@@ -46,6 +47,18 @@ namespace ChatBotProject
                 {
                     await ctx.Message.RespondAsync("The bot is already deactivated!");
                 }
+            }else if(args.Length <= 0 || args[0].ToLower().Contains("help"))
+            {
+                //No commands present!
+                if (args.Length <= 0)
+                {
+                    await ctx.RespondAsync("No command arguments present"); 
+                }
+                Dictionary<string, string> subcommands = new Dictionary<string, string>();
+                subcommands.Add(";;talk on", "turn the bot on");
+                subcommands.Add(";;talk off", "turn the bot off");
+                DiscordEmbed embed = JosephineEmbedBuilder.CreateEmbedMessage(ctx, "Help", "A help prompt for the talk command", JosephineBot.BotName, JosephineBot.defaultColor, subcommands);
+                await ctx.RespondAsync("", false, embed);
             }
         }
     }
