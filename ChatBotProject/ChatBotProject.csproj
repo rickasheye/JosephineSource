@@ -224,10 +224,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DecompProject\AIMLBot\AIMLbot\AIMLbot.csproj">
-      <Project>{799a08f2-0bc3-4aa8-8da3-32108daf9d61}</Project>
-      <Name>AIMLbot</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DSharpPlus-master\DSharpPlus.CommandsNext\DSharpPlus.CommandsNext.csproj">
       <Project>{805bc191-a09a-4029-a42a-39ae88d9301d}</Project>
       <Name>DSharpPlus.CommandsNext</Name>

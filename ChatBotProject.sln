@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSharpPlus.CommandsNext", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSharpPlus.VoiceNext", "DSharpPlus-master\DSharpPlus.VoiceNext\DSharpPlus.VoiceNext.csproj", "{3C070EFD-20C1-4C82-88D6-2A36807FEE97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMLbot", "DecompProject\AIMLBot\AIMLbot\AIMLbot.csproj", "{799A08F2-0BC3-4AA8-8DA3-32108DAF9D61}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMLbot", "AIMLBot\AIMLbot\AIMLbot.csproj", "{799A08F2-0BC3-4AA8-8DA3-32108DAF9D61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
