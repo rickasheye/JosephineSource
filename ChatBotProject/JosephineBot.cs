@@ -31,14 +31,14 @@ namespace ChatBotProject
         private pingcommand Commands { get; }
         private CommandsNextExtension CommandsNextService { get; }
         private Timer GameGuard { get; set; }
-        public static string BotName = "Josephine";
+        public static string BotName = "Katamura Kanetu";
         public static bool debugMode = true;
         public static List<guildData> data = new List<guildData>();
         public static List<UserData> saveData = new List<UserData>();
         public static VoiceNextExtension VoiceService;
         public static DiscordColor defaultColor;
 
-        public static string BUILDID = "0.2B";
+        public static string BUILDID = "0.3B";
 
         public JosephineBot(JosephineConfig cfg, int shardid)
         {
@@ -430,9 +430,9 @@ namespace ChatBotProject
                                 {
                                     game.UpdateChatGame(e);
                                 }
-                                bot = new ChatBot(e.Message.Author.Username, null);
+                                if (bot == null) { bot = new ChatBot("user", null); }
                                 content.RespondAsync(showOutput(content.Content));
-                                bot = null;
+                                //bot = null;
                             }
                         }
                     }

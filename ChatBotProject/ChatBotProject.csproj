@@ -157,7 +157,7 @@
     <Compile Include="Commands\channelcommand.cs" />
     <Compile Include="Commands\CommandModule.cs" />
     <Compile Include="Commands\evalcommand.cs" />
-    <Compile Include="Commands\mathcommand.cs" />
+    <Compile Include="Commands\icanhasdadjoke.cs" />
     <Compile Include="Commands\memetemplatecommand.cs" />
     <Compile Include="Debug.cs" />
     <Compile Include="Misc\GameSaveData.cs" />
@@ -173,6 +173,7 @@
     <Compile Include="Misc\Achievement.cs" />
     <Compile Include="Misc\Game.cs" />
     <Compile Include="Misc\GameStuff\Color32.cs" />
+    <Compile Include="Misc\Joke.cs" />
     <Compile Include="Misc\MathOperation.cs" />
     <Compile Include="Misc\Meme.cs" />
     <Compile Include="Misc\MessageContainer.cs" />
@@ -224,6 +225,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AIMLBot\AIMLbot\AIMLbot.csproj">
+      <Project>{799a08f2-0bc3-4aa8-8da3-32108daf9d61}</Project>
+      <Name>AIMLbot</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DSharpPlus-master\DSharpPlus.CommandsNext\DSharpPlus.CommandsNext.csproj">
       <Project>{805bc191-a09a-4029-a42a-39ae88d9301d}</Project>
       <Name>DSharpPlus.CommandsNext</Name>

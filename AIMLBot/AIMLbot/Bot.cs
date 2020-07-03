@@ -489,6 +489,10 @@ namespace AIMLbot
 					goto IL_1E4;
 				}
 			}
+			else
+			{
+				Console.WriteLine("AIML: currently not accepting user input!");
+			}
 			result.OutputSentences.Add(this.NotAcceptingUserInputMessage);
 			IL_1E4:
 			result.Duration = DateTime.Now - request.StartedOn;
