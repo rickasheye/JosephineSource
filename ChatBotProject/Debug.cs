@@ -11,17 +11,50 @@ namespace ChatBotProject
     {
         public static void Log(string message, DiscordClient client)
         {
-            client.DebugLogger.LogMessage(LogLevel.Debug, JosephineBot.BotName, message, DateTime.Now);
+            if (client != null)
+            {
+                client.DebugLogger.LogMessage(LogLevel.Debug, JosephineBot.BotName, message, DateTime.Now);
+            }
+            else
+            {
+                Console.WriteLine("[LOG] " + message);
+            }
         }
 
         public static void Log(string message)
         {
-            JosephineBot.Discord.DebugLogger.LogMessage(LogLevel.Debug, JosephineBot.BotName, message, DateTime.Now);
+            if (JosephineBot.Discord != null)
+            {
+                JosephineBot.Discord.DebugLogger.LogMessage(LogLevel.Debug, JosephineBot.BotName, message, DateTime.Now);
+            }
+            else
+            {
+                Console.WriteLine("[LOG] " + message);
+            }
         }
 
         public static void Warning(string message, DiscordClient client)
         {
-            client.DebugLogger.LogMessage(LogLevel.Warning, JosephineBot.BotName, message, DateTime.Now);
+            if (client != null)
+            {
+                client.DebugLogger.LogMessage(LogLevel.Warning, JosephineBot.BotName, message, DateTime.Now);
+            }
+            else
+            {
+                Console.WriteLine("[WARNING] " + message);
+            }
+        }
+
+        public static void Warning(string message)
+        {
+            if(JosephineBot.Discord != null)
+            {
+                JosephineBot.Discord.DebugLogger.LogMessage(LogLevel.Warning, JosephineBot.BotName, message, DateTime.Now);
+            }
+            else
+            {
+                Console.WriteLine("[WARNING] " + message);
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ namespace ChatBotProject.Commands
 {
     public class icanhasdadjoke : CommandModule
     {
-        [Command("icanhasdadjoke")]
+        /*[Command("icanhasdadjoke")]
         [Description("Generates a dad joke for you.")]
         [Hidden]
         public async Task joke(CommandContext ctx)
@@ -24,6 +24,6 @@ namespace ChatBotProject.Commands
             Joke memeConvert = JsonConvert.DeserializeObject<Joke>(memeString);
             DiscordEmbed embedMeme = JosephineEmbedBuilder.CreateEmbedMessage(ctx, "Here is your dad joke!", memeConvert.JokeJoke, JosephineBot.BotName, JosephineBot.defaultColor);
             await ctx.RespondAsync("", false, embedMeme);
-        }
+        }*/
     }
 }

@@ -335,6 +335,7 @@ namespace ChatBotProject
         public static List<Game> games = new List<Game>();
         private async Task Client_Ready(ReadyEventArgs e)
         {
+            Debug.Log("Loading Status");
             if (debugMode == true)
             {
                 Console.WriteLine("Debug Mode initiated");
@@ -347,24 +348,14 @@ namespace ChatBotProject
                 DiscordActivity game = new DiscordActivity("READY");
                 await Discord.UpdateStatusAsync(game, UserStatus.Online);
             }
-
-            //Check the guilds to make sure they've recieved the latest update on the bot
-            foreach (guildData entry in data)
-            {
-                DiscordGuild guild = await Discord.GetGuildAsync(entry.guildId);
-                if(entry.buildLast != BUILDID)
-                {
-                    DiscordChannel channel = await Discord.GetChannelAsync(entry.disabledChannelID);
-                    DiscordEmbed JosephineEmbed = JosephineEmbedBuilder.CreateEmbedMessage(Discord, "Bot update to " + BUILDID + "!", "This bot has been updated to check out the new features go to http://discord.rickasheye.xyz/");
-                    await channel.SendMessageAsync("", false, JosephineEmbed);
-                    entry.buildLast = BUILDID;
-                }
-            }
+            Debug.Log("Updated Status!");
 
             //Start all the games
             //games.Add(new ZombieGame());
             //games.Add(new LevelUpGame());
             //games.Add(new SnailGame());
+
+            Debug.Log("Loading Games!");
 
             if (games != null)
             {
@@ -374,6 +365,7 @@ namespace ChatBotProject
                     game.InitialiseGame();
                 } 
             }
+            Debug.Log("Loaded Games!");
 
             if (BotName != Discord.CurrentUser.Username)
             {

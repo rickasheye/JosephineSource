@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Humanizer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,11 +23,7 @@ namespace ChatBotProject
         public string AnnounceFormatBot = "Welcome fellow {bot} to this guild!";
         public string AnnounceFormatDesc = "You have arrived at: {guildname}";
 
-        //Singer
-        public ulong voiceChannel = 00;
-        public bool autoSongLeave = true;
-        public List<string> queue = new List<string>();
-        public bool loopSong;
+        public bool botTalkOFF;
 
         public guildData(ulong newGuildID, bool on, ulong lockedChannel, List<string> prefixes, string buildString, bool announce)
         {
@@ -36,6 +33,65 @@ namespace ChatBotProject
             this.prefixes = prefixes;
             buildLast = buildString;
             announceJoin = announce;
+        }
+
+        public guildData(ulong newGuildID, bool on, ulong lockedChannel, List<string> prefixes, string buildString)
+        {
+            guildId = newGuildID;
+            disabledChannelID = lockedChannel;
+            this.on = on;
+            this.prefixes = prefixes;
+            buildLast = buildString;
+            announceJoin = true;
+        }
+
+        public guildData(ulong newGuildID, bool on, ulong lockedChannel, List<string> prefixes)
+        {
+            guildId = newGuildID;
+            disabledChannelID = lockedChannel;
+            this.on = on;
+            this.prefixes = prefixes;
+            buildLast = JosephineBot.BUILDID;
+            announceJoin = true;
+        }
+
+        public guildData(ulong newGuildID, bool on, ulong lockedChannel)
+        {
+            guildId = newGuildID;
+            disabledChannelID = lockedChannel;
+            this.on = on;
+            List<string> prefixes = new List<string>();
+            prefixes.Add(";;");
+            this.prefixes = prefixes;
+            buildLast = JosephineBot.BUILDID;
+            announceJoin = true;
+        }
+
+        public guildData(ulong newGuildID, bool on)
+        {
+            guildId = newGuildID;
+            this.on = on;
+            List<string> prefixes = new List<string>();
+            prefixes.Add(";;");
+            this.prefixes = prefixes;
+            buildLast = JosephineBot.BUILDID;
+            announceJoin = true;
+        }
+
+        public guildData(ulong newGuildID)
+        {
+            guildId = newGuildID;
+            this.on = false;
+            List<string> prefixes = new List<string>();
+            prefixes.Add(";;");
+            this.prefixes = prefixes;
+            buildLast = JosephineBot.BUILDID;
+            announceJoin = true;
+        }
+
+        public guildData()
+        {
+            Debug.Warning("Unable to create a new guild data instance from method as no arguments were provided!!!");
         }
     }
 }

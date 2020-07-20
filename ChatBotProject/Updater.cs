@@ -12,6 +12,10 @@ namespace ChatBotProject
             {
                 //Check for updates on the master branch otherwise cancel!!!
             }
+            else
+            {
+                Debug.Log("Still in debug mode so unable to update!");
+            }
         }
     }
 }

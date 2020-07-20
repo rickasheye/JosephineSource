@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Text;
 using DSharpPlus.EventArgs;
 using DSharpPlus;
+using System.IO.Ports;
 
 namespace ChatBotProject
 {
@@ -19,7 +20,50 @@ namespace ChatBotProject
         private static List<JosephineBot> Shards { get; } = new List<JosephineBot>();
 
         public static void Main(string[] args)
-            => MainAsync(args).ConfigureAwait(false).GetAwaiter().GetResult();
+        {
+            MainAsync(args).ConfigureAwait(false).GetAwaiter().GetResult();
+            Console.Title = "Josephine Discord Bot - Debug: " + JosephineBot.debugMode;
+            SetupDebugConsole(args);
+        }
+
+        public static void SetupDebugConsole(string[] args)
+        {
+            while (true)
+            {
+                Console.Title = "Josephine Discord Bot - Debug: " + JosephineBot.debugMode;
+                string readLine = Console.ReadLine();
+                if (!readLine.Contains(""))
+                {
+                    switch (readLine)
+                    {
+                        case "lmao":
+                            Console.WriteLine("poggers");
+                            break;
+                        case "exit":
+                            Environment.Exit(0);
+                            break;
+                        case "debugmode":
+                            //Engage Debug Mode Manually
+                            JosephineBot.debugMode = true;
+                            Stop();
+                            MainAsync(args).ConfigureAwait(false).GetAwaiter().GetResult();
+                            break;
+                        case "restart":
+                            Stop();
+                            MainAsync(args).ConfigureAwait(false).GetAwaiter().GetResult();
+                            break;
+                    }
+                }
+            }
+        }
+
+        public static void Stop()
+        {
+            foreach (var shard in Shards)
+                shard.StopAsync().GetAwaiter().GetResult(); // it dun matter
+
+            CancelTokenSource.Cancel();
+        }
 
         public static async Task MainAsync(string[] args)
         {
