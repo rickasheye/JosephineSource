@@ -20,6 +20,7 @@ using ChatBotProject.Misc;
 using ChatBotProject.Misc.ZombieDemoGame;
 using ChatBotProject.Misc.LevelUp;
 using ChatBotProject.Misc.SnailRaceDemoGame;
+using ChatBotProject.ConsoleCommands;
 
 namespace ChatBotProject
 {
@@ -96,6 +97,104 @@ namespace ChatBotProject
             this.CommandsNextService.CommandExecuted += this.Commands_CommandExecuted;
             this.CommandsNextService.RegisterCommands(typeof(JosephineBot).GetTypeInfo().Assembly);
             this.CommandsNextService.SetHelpFormatter<HelpFormatter>();
+
+            Console.Title = "Josephine Discord Bot - Debug: " + JosephineBot.debugMode;
+            //SetupDebugConsole();
+        }
+
+        public List<ConsoleCommand> commands = new List<ConsoleCommand>();
+
+        public void AddCommand(ConsoleCommand command)
+        {
+            bool checkAvaliable = false;
+            foreach(ConsoleCommand cmd in commands)
+            {
+                if(cmd.name == command.name)
+                {
+                    checkAvaliable = true;
+                }
+            }
+
+            if(checkAvaliable == false)
+            {
+                commands.Add(command);
+            }
+        }
+        public void SetupDebugConsole()
+        {
+            Console.Title = "Josephine Discord Bot - Debug: " + JosephineBot.debugMode;
+            string readLine = Console.ReadLine();
+
+            AddCommand(new globalchat());
+            AddCommand(new ping());
+            AddCommand(new servers());
+
+            foreach(ConsoleCommand cmd in commands)
+            {
+                if(readLine == cmd.name)
+                {
+                    //Debug.Log("Hit command run: " + cmd.name);
+
+                    string[] arguments = readLine.Split(' ');
+                    if (arguments.Length > 1)
+                    {
+                        string[] withoutarg = arguments.Where(w => w != arguments[0]).ToArray();
+                        cmd.Execute(withoutarg);
+                    }
+                    else
+                    {
+                        cmd.Execute();
+                    }
+                }
+            }
+
+            //Hard coded commands just for helping
+            switch (readLine)
+            {
+                case "lmao":
+                    Console.WriteLine("poggers");
+                    break;
+                case "exit":
+                    Environment.Exit(0);
+                    break;
+                case "debugmode":
+                    //Engage Debug Mode Manually
+                    if (debugMode == false)
+                    {
+                        debugMode = true;
+                    }
+                    else if (debugMode == true)
+                    {
+                        debugMode = false;
+                    }
+                    Stop();
+                    Start();
+                    break;
+                case "speak":
+                    break;
+                case "restart":
+                    Stop();
+                    Start();
+                    break;
+                case "commandsloaded":
+                    Console.WriteLine("There is: " + commands.Count + " commands loaded which are: ");
+                    foreach(ConsoleCommand command in commands)
+                    {
+                        Console.WriteLine(command.name);
+                    }
+                    break;
+            }
+            SetupDebugConsole();
+        }
+
+        public void Stop()
+        {
+            Discord.DisconnectAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+        }
+
+        public void Start()
+        {
+            Program.MainAsync().ConfigureAwait(false).GetAwaiter().GetResult();
         }
 
         public async Task MessageUpdated(MessageUpdateEventArgs e)
@@ -374,6 +473,7 @@ namespace ChatBotProject
 
             // let's log the fact that this event occured
             e.Client.DebugLogger.LogMessage(LogLevel.Info, BotName, "Client is ready to process events.", DateTime.Now);
+            SetupDebugConsole();
         }
 
         public static bool use = false;

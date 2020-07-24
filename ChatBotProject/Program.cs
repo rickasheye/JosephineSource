@@ -21,40 +21,7 @@ namespace ChatBotProject
 
         public static void Main(string[] args)
         {
-            MainAsync(args).ConfigureAwait(false).GetAwaiter().GetResult();
-            Console.Title = "Josephine Discord Bot - Debug: " + JosephineBot.debugMode;
-            SetupDebugConsole(args);
-        }
-
-        public static void SetupDebugConsole(string[] args)
-        {
-            while (true)
-            {
-                Console.Title = "Josephine Discord Bot - Debug: " + JosephineBot.debugMode;
-                string readLine = Console.ReadLine();
-                if (!readLine.Contains(""))
-                {
-                    switch (readLine)
-                    {
-                        case "lmao":
-                            Console.WriteLine("poggers");
-                            break;
-                        case "exit":
-                            Environment.Exit(0);
-                            break;
-                        case "debugmode":
-                            //Engage Debug Mode Manually
-                            JosephineBot.debugMode = true;
-                            Stop();
-                            MainAsync(args).ConfigureAwait(false).GetAwaiter().GetResult();
-                            break;
-                        case "restart":
-                            Stop();
-                            MainAsync(args).ConfigureAwait(false).GetAwaiter().GetResult();
-                            break;
-                    }
-                }
-            }
+            MainAsync().ConfigureAwait(false).GetAwaiter().GetResult();
         }
 
         public static void Stop()
@@ -65,7 +32,7 @@ namespace ChatBotProject
             CancelTokenSource.Cancel();
         }
 
-        public static async Task MainAsync(string[] args)
+        public static async Task MainAsync()
         {
             Console.CancelKeyPress += Console_CancelKeyPress;
 

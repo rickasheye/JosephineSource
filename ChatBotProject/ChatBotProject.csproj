@@ -159,7 +159,12 @@
     <Compile Include="Commands\evalcommand.cs" />
     <Compile Include="Commands\icanhasdadjoke.cs" />
     <Compile Include="Commands\memetemplatecommand.cs" />
+    <Compile Include="Commands\funfactcommand.cs" />
     <Compile Include="Commands\serverscommand.cs" />
+    <Compile Include="ConsoleCommands\ConsoleCommand.cs" />
+    <Compile Include="ConsoleCommands\servers.cs" />
+    <Compile Include="ConsoleCommands\ping.cs" />
+    <Compile Include="ConsoleCommands\globalchat.cs" />
     <Compile Include="Debug.cs" />
     <Compile Include="Misc\GameSaveData.cs" />
     <Compile Include="guildData.cs" />
