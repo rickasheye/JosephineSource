@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace ChatBotProject.Commands
 {
-    public class serverscommand : CommandModule
+    public class settingscommand : CommandModule
     {
-        [Command("server")]
-        [Description("Getting how many servers this bot serves on")]
-        [Aliases("servers")]
-        public async Task Servers(CommandContext ctx)
+        [Command("settings")]
+        [Description("Setting's prompt for the main user or owner.")]
+        [Aliases("settingsprompt")]
+        public async Task Settings(CommandContext ctx)
         {
             await base.OperateCommand(ctx);
-            await ctx.RespondAsync("I serve on: " + JosephineBot.data.Count + " servers!");
+
         }
     }
 }

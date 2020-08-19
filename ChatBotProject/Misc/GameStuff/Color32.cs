@@ -12,7 +12,6 @@ namespace ChatBotProject.Misc.GameStuff
     {
         private uint _packedValue;
 
-        [CLSCompliant(false)]
         public Color32(uint packedValue)
         {
             _packedValue = packedValue;
@@ -29,6 +28,11 @@ namespace ChatBotProject.Misc.GameStuff
             {
                 _packedValue = (color._packedValue & 0x00FFFFFF) | ((uint)alpha << 24);
             }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
         public Color32(Color32 color, float alpha) : this(color, (int)(alpha * 255))

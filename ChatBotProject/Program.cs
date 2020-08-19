@@ -99,6 +99,8 @@ namespace ChatBotProject
                 await Task.Delay(-1, CancelToken).ConfigureAwait(false);
             }
             catch (Exception) { /* shush */ }
+
+            JosephineCore.Program.read = false;
         }
 
         private static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e)
@@ -153,43 +155,6 @@ namespace ChatBotProject
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(e.Message);
-        }
-    }
-
-    public class ChatBot
-    {
-        private User myUser;
-        public Bot Aimlbot;
-
-        public ChatBot(string UserId, Bot Bot)
-        {
-            if (Bot == null)
-            {
-                Aimlbot = new Bot();
-            }
-            else
-            {
-                Aimlbot = Bot;
-            }
-            myUser = new User(UserId, Aimlbot);
-            Initialize();
-        }
-
-        // Loads all the AIML files in the \AIML folder         
-        public void Initialize()
-        {
-            Aimlbot.loadSettings();
-            Aimlbot.isAcceptingUserInput = false;
-            Aimlbot.loadAIMLFromFiles();
-            Aimlbot.isAcceptingUserInput = true;
-        }
-
-        // Given an input string, finds a response using AIMLbot lib
-        public String getOutput(String input)
-        {
-            Request r = new Request(input, myUser, Aimlbot);
-            Result res = Aimlbot.Chat(r);
-            return (res.Output);
         }
     }
 }

@@ -79,6 +79,12 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Reddit.NET, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Reddit.1.4.0\lib\netstandard2.0\Reddit.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.6.9.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.6.9\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="SpotifyAPI.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SpotifyAPI.Web.5.1.1\lib\netstandard2.0\SpotifyAPI.Web.dll</HintPath>
     </Reference>
@@ -136,6 +142,7 @@
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.3\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -157,10 +164,10 @@
     <Compile Include="Commands\channelcommand.cs" />
     <Compile Include="Commands\CommandModule.cs" />
     <Compile Include="Commands\evalcommand.cs" />
-    <Compile Include="Commands\icanhasdadjoke.cs" />
     <Compile Include="Commands\memetemplatecommand.cs" />
     <Compile Include="Commands\funfactcommand.cs" />
-    <Compile Include="Commands\serverscommand.cs" />
+    <Compile Include="Commands\statuscommand.cs" />
+    <Compile Include="Commands\settingscommand.cs" />
     <Compile Include="ConsoleCommands\ConsoleCommand.cs" />
     <Compile Include="ConsoleCommands\servers.cs" />
     <Compile Include="ConsoleCommands\ping.cs" />
@@ -193,6 +200,7 @@
     <Compile Include="Misc\GameStuff\Vector2.cs" />
     <Compile Include="Misc\LevelUp\LevelUp.cs" />
     <Compile Include="Misc\LevelUp\PlayerSave_LevelUp.cs" />
+    <Compile Include="Misc\RedditPost.cs" />
     <Compile Include="Misc\SnailRaceDemoGame\SnailGame.cs" />
     <Compile Include="Misc\ZombieDemoGame\PlayerSave_Zombie.cs" />
     <Compile Include="Misc\ZombieDemoGame\ShotFirstZombie.cs" />
@@ -246,6 +254,10 @@
     <ProjectReference Include="..\DSharpPlus-master\DSharpPlus\DSharpPlus.csproj">
       <Project>{61907366-773d-4ebf-9539-7e356c4e8557}</Project>
       <Name>DSharpPlus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JosephineCore\JosephineCore.csproj">
+      <Project>{6b644b62-bed1-4910-9fa2-7318c4147091}</Project>
+      <Name>JosephineCore</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -54,12 +54,6 @@ namespace DSharpPlus
             VersionHeader = $"DiscordBot (https://github.com/DSharpPlus/DSharpPlus, v{vs})";
         }
 
-        internal static int CalculateIntegrity(int ping, DateTimeOffset timestamp, int heartbeat_interval)
-        {
-            Random r = new Random();
-            return r.Next(ping, int.MaxValue);
-        }
-
         internal static string GetApiBaseUri() 
             => Endpoints.BASE_URI;
 
@@ -82,17 +76,13 @@ namespace DSharpPlus
             switch (config.TokenType)
             {
                 case TokenType.Bearer:
-                    {
-                        return $"Bearer {config.Token}";
-                    }
+                    return $"Bearer {config.Token}";
+
                 case TokenType.Bot:
-                    {
-                        return $"Bot {config.Token}";
-                    }
+                    return $"Bot {config.Token}";
+
                 default:
-                    {
-                        return config.Token;
-                    }
+                    throw new ArgumentException("Invalid token type specified.", nameof(config.Token));
             }
         }
 

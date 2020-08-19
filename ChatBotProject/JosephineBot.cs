@@ -21,12 +21,12 @@ using ChatBotProject.Misc.ZombieDemoGame;
 using ChatBotProject.Misc.LevelUp;
 using ChatBotProject.Misc.SnailRaceDemoGame;
 using ChatBotProject.ConsoleCommands;
+using System.Runtime.Remoting.Messaging;
 
 namespace ChatBotProject
 {
     internal sealed class JosephineBot
     {
-        ChatBot bot;
         public static JosephineConfig Config { get; set; }
         public static DiscordClient Discord { get; set; }
         private pingcommand Commands { get; }
@@ -56,7 +56,7 @@ namespace ChatBotProject
                 UseInternalLogHandler = false,
                 ShardId = shardid,
                 ShardCount = Config.ShardCount,
-                MessageCacheSize = 2048,
+                MessageCacheSize = 4096,
                 DateTimeFormat = "dd-MM-yyyy HH:mm:ss zzz"
             };
 
@@ -100,6 +100,8 @@ namespace ChatBotProject
 
             Console.Title = "Josephine Discord Bot - Debug: " + JosephineBot.debugMode;
             //SetupDebugConsole();
+
+            defaultColor = DiscordColor.Blue;
         }
 
         public List<ConsoleCommand> commands = new List<ConsoleCommand>();
@@ -325,28 +327,6 @@ namespace ChatBotProject
             }
         }
 
-        private string showOutput(string message)
-        {
-            string replyMessage = null;
-            if (!(string.IsNullOrWhiteSpace(message))) // Make sure the textbox isnt empty
-            {
-                // Store the Bot's Output by giving it our input.
-                string outtt = bot.getOutput(message);
-                replyMessage = outtt;
-
-                //=========== Creates backup of chat from user and bot to the given location ============
-                FileStream fs = new FileStream(@"chat.log", FileMode.Append, FileAccess.Write);
-                if (fs.CanWrite)
-                {
-                    byte[] write = System.Text.Encoding.ASCII.GetBytes(message + Environment.NewLine + outtt + Environment.NewLine);
-                    fs.Write(write, 0, write.Length);
-                }
-                fs.Flush();
-                fs.Close();
-            }
-            return replyMessage;
-        }
-
         private Task Commands_CommandExecuted(CommandExecutionEventArgs e)
         {
             if(debugMode == true)
@@ -473,7 +453,7 @@ namespace ChatBotProject
 
             // let's log the fact that this event occured
             e.Client.DebugLogger.LogMessage(LogLevel.Info, BotName, "Client is ready to process events.", DateTime.Now);
-            SetupDebugConsole();
+            //SetupDebugConsole();
         }
 
         public static bool use = false;
@@ -522,8 +502,7 @@ namespace ChatBotProject
                                 {
                                     game.UpdateChatGame(e);
                                 }
-                                if (bot == null) { bot = new ChatBot("user", null); }
-                                content.RespondAsync(showOutput(content.Content));
+                                content.RespondAsync(JosephineCore.Program.showOutput(content.Content));
                                 //bot = null;
                             }
                         }

@@ -7,13 +7,6 @@ namespace DSharpPlus.Entities
     /// </summary>
     public sealed class DiscordEmbedField
     {
-        public DiscordEmbedField(string name, string value, bool inline)
-        {
-            Name = name;
-            Value = value;
-            Inline = inline;
-        }
-
         /// <summary>
         /// Gets the name of the field.
         /// </summary>

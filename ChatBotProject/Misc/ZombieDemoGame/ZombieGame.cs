@@ -17,8 +17,6 @@ namespace ChatBotProject.Misc.ZombieDemoGame
 {
     public class ZombieGame : Game
     {
-        DiscordUser userStart;
-        bool gameRunning = false;
         public List<PlayerSave_Zombie> savesInGame = new List<PlayerSave_Zombie>();
 
         public ZombieGame() : base("Zombie") { }

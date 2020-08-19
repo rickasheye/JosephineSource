@@ -65,8 +65,11 @@ namespace AIMLbot.Utils
 				xmlDocument.Load(pathToSettings);
 				this.loadSettings(xmlDocument);
 				return;
+			}else if (!fileInfo.Exists)
+			{
+				//create a new file but for now throw it
+				throw new FileNotFoundException();
 			}
-			throw new FileNotFoundException();
 		}
 
 		// Token: 0x060000A5 RID: 165 RVA: 0x00006964 File Offset: 0x00005964

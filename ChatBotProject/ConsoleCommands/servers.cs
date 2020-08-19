@@ -19,11 +19,7 @@ namespace ChatBotProject.ConsoleCommands
         {
             base.Execute();
             //Execute here
-            Debug.Log("I am serving " + JosephineBot.data.Count + " servers which are");
-            foreach(guildData data in JosephineBot.data)
-            {
-                Debug.Log(JosephineBot.Discord.GetChannelAsync(data.guildId).Result.Name);
-            }
+            Debug.Log("I am serving " + JosephineBot.data.Count + " servers");
         }
     }
 }

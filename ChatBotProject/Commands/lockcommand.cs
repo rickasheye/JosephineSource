@@ -11,7 +11,7 @@ namespace ChatBotProject
     public class lockcommand : CommandModule
     {
         [Command("lock"), Description("Locks the bot to a single channel")]
-        public async Task Lock(CommandContext ctx, params string[] args)
+        public async Task Lock(CommandContext ctx, string channelName)
         {
             await base.OperateCommand(ctx);
             // note the params on the argument. It will indicate
@@ -19,34 +19,31 @@ namespace ChatBotProject
             // into a single array
 
             bool locked = false;
-            string argument = args[0];
 
-            if (argument.Contains("#"))
+            if (channelName.Contains("#"))
             {
-                argument.Replace("#", string.Empty);
+                channelName.Replace("#", string.Empty);
             }
 
-            if (Utils.DiscordChannelExists(argument, ctx.Guild))
+            if (Utils.DiscordChannelExists(channelName, ctx.Guild))
             {
-                if (argument.Contains("none") || argument.Contains("nothing") || argument == string.Empty || argument == null)
+                if (!channelName.Contains(string.Empty) || !channelName.Contains(null))
                 {
-                    Utils.setChannel(0, ctx.Guild.Id);
-                    locked = false;
-                }
-
-                if (!argument.Contains("none") || !argument.Contains("nothing") || !argument.Contains(string.Empty) || !argument.Contains(null))
-                {
-                    if (argument != null)
+                    if (Utils.returnGuildData(ctx.Guild.Id).disabledChannelID != Utils.retrieveChannelID(channelName, ctx.Guild).Id)
                     {
-                        Utils.setChannel(Utils.retrieveChannelID(argument, ctx.Guild).Id, ctx.Guild.Id);
+                        Utils.setChannel(Utils.retrieveChannelID(channelName, ctx.Guild).Id, ctx.Guild.Id);
                         locked = true;
+                    }
+                    else
+                    {
+                        Utils.setChannel(Utils.retrieveChannelID(channelName, ctx.Guild).Id, 0);
                     }
                 }
 
                 // and send it to the user
                 if (locked == true)
                 {
-                    await ctx.RespondAsync($"I have been locked to: #" + argument);
+                    await ctx.RespondAsync($"I have been locked to: #" + channelName);
                 }
                 else if (locked == false && Utils.returnChannelLock(ctx.Guild.Id) == 0)
                 {
@@ -60,6 +57,24 @@ namespace ChatBotProject
             else
             {
                 await ctx.Message.RespondAsync("That channel doesnt exist!");
+            }
+        }
+
+        [Command("lock"), Description("Locks the bot to a single channel")]
+        public async Task Lock(CommandContext ctx)
+        {
+            await base.OperateCommand(ctx);
+
+            guildData data = Utils.returnGuildData(ctx.Guild.Id);
+            if(data.disabledChannelID != 0)
+            {
+                await ctx.RespondAsync("The bot has been unlocked from this channel");
+                Utils.setChannel(0, ctx.Guild.Id);
+            }
+            else
+            {
+                await ctx.RespondAsync("The bot has been locked to this channel");
+                Utils.setChannel(ctx.Channel.Id, ctx.Guild.Id);
             }
         }
     }

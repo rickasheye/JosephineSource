@@ -17,11 +17,6 @@ namespace AIMLbot.Utils
 			this.templateNode.Attributes.RemoveNamedItem("xmlns");
 		}
 
-		// Token: 0x0600000B RID: 11 RVA: 0x0000213E File Offset: 0x0000113E
-		public AIMLTagHandler()
-		{
-		}
-
 		// Token: 0x0600000C RID: 12 RVA: 0x00002150 File Offset: 0x00001150
 		public static XmlNode getNode(string outerXML)
 		{
