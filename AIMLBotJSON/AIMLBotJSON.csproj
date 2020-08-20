@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0D403F32-2EF3-43D4-87E3-E54CBA46155E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>AIMLbot</RootNamespace>
+    <AssemblyName>AIMLbot</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>4096</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AIMLTagHandlers\bot.cs" />
+    <Compile Include="AIMLTagHandlers\condition.cs" />
+    <Compile Include="AIMLTagHandlers\date.cs" />
+    <Compile Include="AIMLTagHandlers\formal.cs" />
+    <Compile Include="AIMLTagHandlers\gender.cs" />
+    <Compile Include="AIMLTagHandlers\get.cs" />
+    <Compile Include="AIMLTagHandlers\gossip.cs" />
+    <Compile Include="AIMLTagHandlers\id.cs" />
+    <Compile Include="AIMLTagHandlers\input.cs" />
+    <Compile Include="AIMLTagHandlers\javascript.cs" />
+    <Compile Include="AIMLTagHandlers\learn.cs" />
+    <Compile Include="AIMLTagHandlers\lowercase.cs" />
+    <Compile Include="AIMLTagHandlers\person.cs" />
+    <Compile Include="AIMLTagHandlers\person2.cs" />
+    <Compile Include="AIMLTagHandlers\random.cs" />
+    <Compile Include="AIMLTagHandlers\sentence.cs" />
+    <Compile Include="AIMLTagHandlers\set.cs" />
+    <Compile Include="AIMLTagHandlers\size.cs" />
+    <Compile Include="AIMLTagHandlers\sr.cs" />
+    <Compile Include="AIMLTagHandlers\srai.cs" />
+    <Compile Include="AIMLTagHandlers\star.cs" />
+    <Compile Include="AIMLTagHandlers\system.cs" />
+    <Compile Include="AIMLTagHandlers\that.cs" />
+    <Compile Include="AIMLTagHandlers\thatstar.cs" />
+    <Compile Include="AIMLTagHandlers\think.cs" />
+    <Compile Include="AIMLTagHandlers\topicstar.cs" />
+    <Compile Include="AIMLTagHandlers\uppercase.cs" />
+    <Compile Include="AIMLTagHandlers\version.cs" />
+    <Compile Include="Bot.cs" />
+    <Compile Include="Normalize\ApplySubstitutions.cs" />
+    <Compile Include="Normalize\MakeCaseInsensitive.cs" />
+    <Compile Include="Normalize\SplitIntoSentences.cs" />
+    <Compile Include="Normalize\StripIllegalCharacters.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Request.cs" />
+    <Compile Include="Result.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="Utils\AIMLLoader.cs" />
+    <Compile Include="Utils\AIMLTagHandler.cs" />
+    <Compile Include="Utils\CustomTagAttribute.cs" />
+    <Compile Include="Utils\Gender.cs" />
+    <Compile Include="Utils\MatchState.cs" />
+    <Compile Include="Utils\Node.cs" />
+    <Compile Include="Utils\SettingsDictionary.cs" />
+    <Compile Include="Utils\SubQuery.cs" />
+    <Compile Include="Utils\TagHandler.cs" />
+    <Compile Include="Utils\TextTransformer.cs" />
+    <Compile Include="Utils\Topic.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMLbot", "AIMLBot\AIMLbot\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JosephineCore", "JosephineCore\JosephineCore.csproj", "{6B644B62-BED1-4910-9FA2-7318C4147091}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMLBotJSON", "AIMLBotJSON\AIMLBotJSON.csproj", "{0D403F32-2EF3-43D4-87E3-E54CBA46155E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,14 @@ Global
 		{6B644B62-BED1-4910-9FA2-7318C4147091}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6B644B62-BED1-4910-9FA2-7318C4147091}.Release|x64.ActiveCfg = Release|Any CPU
 		{6B644B62-BED1-4910-9FA2-7318C4147091}.Release|x64.Build.0 = Release|Any CPU
+		{0D403F32-2EF3-43D4-87E3-E54CBA46155E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D403F32-2EF3-43D4-87E3-E54CBA46155E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D403F32-2EF3-43D4-87E3-E54CBA46155E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0D403F32-2EF3-43D4-87E3-E54CBA46155E}.Debug|x64.Build.0 = Debug|Any CPU
+		{0D403F32-2EF3-43D4-87E3-E54CBA46155E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D403F32-2EF3-43D4-87E3-E54CBA46155E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D403F32-2EF3-43D4-87E3-E54CBA46155E}.Release|x64.ActiveCfg = Release|Any CPU
+		{0D403F32-2EF3-43D4-87E3-E54CBA46155E}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

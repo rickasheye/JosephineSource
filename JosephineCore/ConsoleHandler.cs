@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,36 +13,30 @@ namespace JosephineCore
 
         public ConsoleHandler()
         {
-            AddCommand(new stop());
-            AddCommand(new commandsloaded());
-            AddCommand(new status());
-            AddCommand(new running());
-            AddCommand(new time());
-        }
-
-        public void AddCommand(ConsoleCommand command)
-        {
-            bool checkAvaliable = false;
-            foreach (ConsoleCommand cmd in commands)
+            //Add or assign subclasses
+            foreach(Type m in returnSubclasses())
             {
-                if (cmd.name == command.name)
-                {
-                    checkAvaliable = true;
-                }
-            }
-
-            if (checkAvaliable == false)
-            {
+                ConsoleCommand command = m as ConsoleCommand;
                 commands.Add(command);
             }
         }
+
+        public static IEnumerable<Type> returnSubclasses()
+        {
+            Type parentType = typeof(ConsoleCommand);
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            Type[] types = assembly.GetTypes();
+            IEnumerable<Type> subclasses = types.Where(t => t.IsSubclassOf(parentType));
+            return subclasses;
+        }
+
         public void SetupDebugConsole(string readLine)
         {
             bool executeSuccessful = false;
             foreach (ConsoleCommand cmd in commands)
             {
                 readLine = readLine.Replace("!", "");
-                if (readLine == cmd.name)
+                if (cmd != null && readLine == cmd.name)
                 {
                     //Debug.Log("Hit command run: " + cmd.name);
 

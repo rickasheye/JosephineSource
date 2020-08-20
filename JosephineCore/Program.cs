@@ -1,4 +1,5 @@
 ﻿using AIMLbot;
+using ChatBotProject;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,26 +17,26 @@ namespace JosephineCore
         public static string BotName = "Katamura Kanetu";
         public static bool debugMode = true;
 
+        public static string BUILDID = "0.34B";
+
+        public static bool commands = false;
         static ConsoleHandler handler;
+        static Updater systemUpdater;
 
         static void Main(string[] args)
         {
             Debug.Log("Starting core... yes this is main core where we do main core things.");
-            if(bot == null)
-            {
-                bot = new ChatBot("user", null);
-            }
-
-            if(handler == null)
-            {
-                handler = new ConsoleHandler();
-            }
+            if (debugMode == true) { Debug.Log("Debug mode is enabled"); }
+            if(commands == true) { Debug.Log("Commands are enabled!"); }
+            if(bot == null){ bot = new ChatBot("user", null);}
+            if(handler == null && commands == true){ handler = new ConsoleHandler(); }
+            if (systemUpdater == null) { systemUpdater = new Updater(); }
 
             while (read)
             {
                 Console.Write(">");
                 string waitingMessage = Console.ReadLine();
-                if (waitingMessage.Contains("!"))
+                if (waitingMessage.Contains("!") && commands == true)
                 {
                     handler.SetupDebugConsole(waitingMessage);
                 }

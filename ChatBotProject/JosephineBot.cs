@@ -36,11 +36,8 @@ namespace ChatBotProject
         public static VoiceNextExtension VoiceService;
         public static DiscordColor defaultColor;
 
-        public static string BUILDID = "0.34B";
-
         public JosephineBot(JosephineConfig cfg, int shardid)
         {
-            Updater update = new Updater();
             Config = cfg;
 
             var dcfg = new DiscordConfiguration
