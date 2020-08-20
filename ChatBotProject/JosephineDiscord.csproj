@@ -168,10 +168,6 @@
     <Compile Include="Commands\funfactcommand.cs" />
     <Compile Include="Commands\statuscommand.cs" />
     <Compile Include="Commands\settingscommand.cs" />
-    <Compile Include="ConsoleCommands\ConsoleCommand.cs" />
-    <Compile Include="ConsoleCommands\servers.cs" />
-    <Compile Include="ConsoleCommands\ping.cs" />
-    <Compile Include="ConsoleCommands\globalchat.cs" />
     <Compile Include="Debug.cs" />
     <Compile Include="Misc\GameSaveData.cs" />
     <Compile Include="guildData.cs" />

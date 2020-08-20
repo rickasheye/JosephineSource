@@ -65,10 +65,6 @@ namespace AIMLbot.Utils
 				xmlDocument.Load(pathToSettings);
 				this.loadSettings(xmlDocument);
 				return;
-			}else if (!fileInfo.Exists)
-			{
-				//create a new file but for now throw it
-				throw new FileNotFoundException();
 			}
 		}
 

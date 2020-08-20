@@ -10,17 +10,39 @@ namespace JosephineCore
 {
     public class Program
     {
-        static ChatBot bot;
+        public static ChatBot bot;
         public static bool read = true;
+
+        public static string BotName = "Katamura Kanetu";
+        public static bool debugMode = true;
+
+        static ConsoleHandler handler;
 
         static void Main(string[] args)
         {
             Debug.Log("Starting core... yes this is main core where we do main core things.");
+            if(bot == null)
+            {
+                bot = new ChatBot("user", null);
+            }
+
+            if(handler == null)
+            {
+                handler = new ConsoleHandler();
+            }
+
             while (read)
             {
                 Console.Write(">");
                 string waitingMessage = Console.ReadLine();
-                Debug.UserMessage(showOutput(waitingMessage), Debug.UserType.BOT);
+                if (waitingMessage.Contains("!"))
+                {
+                    handler.SetupDebugConsole(waitingMessage);
+                }
+                else
+                {
+                    Debug.UserMessage(showOutput(waitingMessage), Debug.UserType.BOT);
+                }
             }
         }
 

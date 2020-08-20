@@ -1,15 +1,14 @@
-﻿using DSharpPlus.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChatBotProject.ConsoleCommands
+namespace JosephineCore
 {
-    public class servers : ConsoleCommand
+    public class time : ConsoleCommand
     {
-        public servers() : base("servers")
+        public time() : base("time")
         {
 
         }
@@ -19,7 +18,7 @@ namespace ChatBotProject.ConsoleCommands
         {
             base.Execute();
             //Execute here
-            Debug.Log("I am serving " + JosephineBot.data.Count + " servers");
+            Debug.Log("Chat bot status is " + DateTime.Now);
         }
     }
 }

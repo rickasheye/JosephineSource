@@ -1,15 +1,14 @@
-﻿using DSharpPlus.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChatBotProject.ConsoleCommands
+namespace JosephineCore
 {
-    public class ping : ConsoleCommand
+    public class stop : ConsoleCommand
     {
-        public ping() : base("ping")
+        public stop() : base("stop")
         {
 
         }
@@ -19,7 +18,7 @@ namespace ChatBotProject.ConsoleCommands
         {
             base.Execute();
             //Execute here
-            Debug.Log("You have a ping of: " + JosephineBot.Discord.Ping);
+            Environment.Exit(0);
         }
     }
 }

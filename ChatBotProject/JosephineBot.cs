@@ -20,26 +20,23 @@ using ChatBotProject.Misc;
 using ChatBotProject.Misc.ZombieDemoGame;
 using ChatBotProject.Misc.LevelUp;
 using ChatBotProject.Misc.SnailRaceDemoGame;
-using ChatBotProject.ConsoleCommands;
 using System.Runtime.Remoting.Messaging;
 
 namespace ChatBotProject
 {
-    internal sealed class JosephineBot
+    internal sealed class JosephineBot : JosephineCore.Program
     {
         public static JosephineConfig Config { get; set; }
         public static DiscordClient Discord { get; set; }
         private pingcommand Commands { get; }
         private CommandsNextExtension CommandsNextService { get; }
         private Timer GameGuard { get; set; }
-        public static string BotName = "Katamura Kanetu";
-        public static bool debugMode = true;
         public static List<guildData> data = new List<guildData>();
         public static List<UserData> saveData = new List<UserData>();
         public static VoiceNextExtension VoiceService;
         public static DiscordColor defaultColor;
 
-        public static string BUILDID = "0.3B";
+        public static string BUILDID = "0.34B";
 
         public JosephineBot(JosephineConfig cfg, int shardid)
         {
@@ -102,91 +99,6 @@ namespace ChatBotProject
             //SetupDebugConsole();
 
             defaultColor = DiscordColor.Blue;
-        }
-
-        public List<ConsoleCommand> commands = new List<ConsoleCommand>();
-
-        public void AddCommand(ConsoleCommand command)
-        {
-            bool checkAvaliable = false;
-            foreach(ConsoleCommand cmd in commands)
-            {
-                if(cmd.name == command.name)
-                {
-                    checkAvaliable = true;
-                }
-            }
-
-            if(checkAvaliable == false)
-            {
-                commands.Add(command);
-            }
-        }
-        public void SetupDebugConsole()
-        {
-            Console.Title = "Josephine Discord Bot - Debug: " + JosephineBot.debugMode;
-            string readLine = Console.ReadLine();
-
-            AddCommand(new globalchat());
-            AddCommand(new ping());
-            AddCommand(new servers());
-
-            foreach(ConsoleCommand cmd in commands)
-            {
-                if(readLine == cmd.name)
-                {
-                    //Debug.Log("Hit command run: " + cmd.name);
-
-                    string[] arguments = readLine.Split(' ');
-                    if (arguments.Length > 1)
-                    {
-                        string[] withoutarg = arguments.Where(w => w != arguments[0]).ToArray();
-                        cmd.Execute(withoutarg);
-                    }
-                    else
-                    {
-                        cmd.Execute();
-                    }
-                }
-            }
-
-            //Hard coded commands just for helping
-            switch (readLine)
-            {
-                case "lmao":
-                    Console.WriteLine("poggers");
-                    break;
-                case "exit":
-                    Environment.Exit(0);
-                    break;
-                case "debugmode":
-                    //Engage Debug Mode Manually
-                    if (debugMode == false)
-                    {
-                        debugMode = true;
-                    }
-                    else if (debugMode == true)
-                    {
-                        debugMode = false;
-                    }
-                    Stop();
-                    Start();
-                    break;
-                case "speak":
-                    break;
-                case "restart":
-                    Stop();
-                    Start();
-                    break;
-                case "commandsloaded":
-                    Console.WriteLine("There is: " + commands.Count + " commands loaded which are: ");
-                    foreach(ConsoleCommand command in commands)
-                    {
-                        Console.WriteLine(command.name);
-                    }
-                    break;
-            }
-            SetupDebugConsole();
         }
 
         public void Stop()

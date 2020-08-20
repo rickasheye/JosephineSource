@@ -7,7 +7,8 @@ namespace ChatBotProject
         //More like a self patcher!
         public Updater()
         {
-            Console.WriteLine("Checking for updates updater not enabled!");
+            Console.WriteLine("Checking for updates!");
+
         }
     }
 }
