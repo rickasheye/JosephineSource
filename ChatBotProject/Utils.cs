@@ -53,31 +53,11 @@ namespace ChatBotProject
             }
         }
 
-        public static void setChannel(ulong channelID, ulong id)
-        {
-            //Set the guild name
-            int guild = retrieveGuild(id);
-            if (JosephineBot.data[guild].disabledChannelID == channelID)
-            {
-                Console.WriteLine("The channel is already closed");
-            }
-            else if (JosephineBot.data[guild].disabledChannelID != channelID)
-            {
-                JosephineBot.data[guild].disabledChannelID = channelID;
-            }
-        }
-
         public static bool returnOpenState(ulong id)
         {
             int guild = retrieveGuild(id);
             //We want to check if the person has permissions before checking the lock too
             return JosephineBot.data[guild].on;
-        }
-
-        public static ulong returnChannelLock(ulong id)
-        {
-            int guild = retrieveGuild(id);
-            return JosephineBot.data[guild].disabledChannelID;
         }
 
         public static int retrieveGuild(ulong id)
@@ -96,7 +76,7 @@ namespace ChatBotProject
                 //Guild doesnt exist time to create one
                 List<string> commandsNew = new List<string>();
                 commandsNew.AddRange(JosephineBot.Config.CommandPrefixes);
-                JosephineBot.data.Add(new guildData(id, false, 0, commandsNew, JosephineBot.BUILDID, true));
+                JosephineBot.data.Add(new guildData(id, false, commandsNew, JosephineBot.BUILDID, true));
                 number = retrieveGuild(id);
             }
             return number;

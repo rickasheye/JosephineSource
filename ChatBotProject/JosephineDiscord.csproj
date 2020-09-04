@@ -173,7 +173,6 @@
     <Compile Include="guildData.cs" />
     <Compile Include="JosephineEmbedBuilder.cs" />
     <Compile Include="JosephineBot.cs" />
-    <Compile Include="Commands\lockcommand.cs" />
     <Compile Include="Commands\announcecommand.cs" />
     <Compile Include="Commands\talkcommand.cs" />
     <Compile Include="Commands\pingcommand.cs" />

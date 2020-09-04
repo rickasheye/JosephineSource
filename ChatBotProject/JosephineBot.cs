@@ -21,6 +21,7 @@ using ChatBotProject.Misc.ZombieDemoGame;
 using ChatBotProject.Misc.LevelUp;
 using ChatBotProject.Misc.SnailRaceDemoGame;
 using System.Runtime.Remoting.Messaging;
+using DSharpPlus.CommandsNext.Attributes;
 
 namespace ChatBotProject
 {
@@ -28,9 +29,7 @@ namespace ChatBotProject
     {
         public static JosephineConfig Config { get; set; }
         public static DiscordClient Discord { get; set; }
-        private pingcommand Commands { get; }
         private CommandsNextExtension CommandsNextService { get; }
-        private Timer GameGuard { get; set; }
         public static List<guildData> data = new List<guildData>();
         public static List<UserData> saveData = new List<UserData>();
         public static VoiceNextExtension VoiceService;
@@ -119,7 +118,7 @@ namespace ChatBotProject
 
         public async Task RunAsync()
         {
-            var act = new DiscordActivity("the screams of your ancestors", ActivityType.ListeningTo);
+            var act = new DiscordActivity("Loading...", ActivityType.ListeningTo);
             await Discord.ConnectAsync(act, UserStatus.DoNotDisturb).ConfigureAwait(false);
         }
 
@@ -223,6 +222,24 @@ namespace ChatBotProject
                 if (ex is CommandNotFoundException && (e.Command == null || e.Command.QualifiedName != "help"))
                     return;
 
+                if(ex is ChecksFailedException)
+                {
+                    RequireBotPermissionsAttribute attr = null;
+                    foreach (Attribute bute in e.Context.Command.CustomAttributes)
+                    {
+                        var perm = bute as RequireBotPermissionsAttribute;
+                        if (perm != null)
+                        {
+                            attr = perm;
+                        }
+                    }
+
+                    if (attr == null)
+                    {
+                        await e.Context.RespondAsync("This bot is missing permissions"); 
+                    }
+                }
+
                 var embed = new DiscordEmbedBuilder
                 {
                     Color = new DiscordColor("#FF0000"),
@@ -306,18 +323,6 @@ namespace ChatBotProject
             {
                 Debug.Log("TargetId: " + entry.Target.Id, Discord);
             }
-
-            //Check through the guild entries and make sure that theres no deleted recorded adresses
-            foreach(guildData dataEntries in data)
-            {
-                ulong guildID = dataEntries.guildId;
-                DiscordGuild guild = await Discord.GetGuildAsync(guildID);
-                DiscordChannel channel = await Discord.GetChannelAsync(dataEntries.disabledChannelID);
-                if(channel == null || dataEntries.disabledChannelID == 0)
-                {
-                    dataEntries.disabledChannelID = 0;
-                }
-            }
         }
 
         public static List<Game> games = new List<Game>();
@@ -366,7 +371,6 @@ namespace ChatBotProject
         }
 
         public static bool use = false;
-        public static ulong Channel = 0;
 
         public bool containPrefix(string[] prefixes, string text)
         {
@@ -388,11 +392,9 @@ namespace ChatBotProject
             {
                 guildData dataGet = data[Utils.retrieveGuild(e.Guild.Id)];
                 use = dataGet.on;
-                Channel = dataGet.disabledChannelID;
             }
             else
             {
-                Channel = 0;
                 use = true;
             }
 
@@ -404,16 +406,13 @@ namespace ChatBotProject
                     {
                         if (e.Author != Discord.CurrentUser)
                         {
-                            if (e.Channel.Id == Channel || Channel == 0)
+                            //Refresh all of the games
+                            foreach (Game game in games)
                             {
-                                //Refresh all of the games
-                                foreach(Game game in games)
-                                {
-                                    game.UpdateChatGame(e);
-                                }
-                                content.RespondAsync(JosephineCore.Program.showOutput(content.Content));
-                                //bot = null;
+                                game.UpdateChatGame(e);
                             }
+                            content.RespondAsync(JosephineCore.Program.showOutput(content.Content));
+                            //bot = null;
                         }
                     }
                     Debug.Log("Chat: " + content.Author + " : " + content.Content, Discord);

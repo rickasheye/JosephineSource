@@ -12,7 +12,6 @@ namespace ChatBotProject
     {
         //General
         public ulong guildId;
-        public ulong disabledChannelID;
         public bool on;
         public List<string> prefixes = new List<string>();
         public string buildLast = "0.1B";
@@ -25,30 +24,27 @@ namespace ChatBotProject
 
         public bool botTalkOFF;
 
-        public guildData(ulong newGuildID, bool on, ulong lockedChannel, List<string> prefixes, string buildString, bool announce)
+        public guildData(ulong newGuildID, bool on, List<string> prefixes, string buildString, bool announce)
         {
             guildId = newGuildID;
-            disabledChannelID = lockedChannel;
             this.on = on;
             this.prefixes = prefixes;
             buildLast = buildString;
             announceJoin = announce;
         }
 
-        public guildData(ulong newGuildID, bool on, ulong lockedChannel, List<string> prefixes, string buildString)
+        public guildData(ulong newGuildID, bool on, List<string> prefixes, string buildString)
         {
             guildId = newGuildID;
-            disabledChannelID = lockedChannel;
             this.on = on;
             this.prefixes = prefixes;
             buildLast = buildString;
             announceJoin = true;
         }
 
-        public guildData(ulong newGuildID, bool on, ulong lockedChannel, List<string> prefixes)
+        public guildData(ulong newGuildID, bool on, List<string> prefixes)
         {
             guildId = newGuildID;
-            disabledChannelID = lockedChannel;
             this.on = on;
             this.prefixes = prefixes;
             buildLast = JosephineBot.BUILDID;
@@ -58,7 +54,6 @@ namespace ChatBotProject
         public guildData(ulong newGuildID, bool on, ulong lockedChannel)
         {
             guildId = newGuildID;
-            disabledChannelID = lockedChannel;
             this.on = on;
             List<string> prefixes = new List<string>();
             prefixes.Add(";;");

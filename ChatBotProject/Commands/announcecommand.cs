@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Unosquare.Swan;
 
 namespace ChatBotProject
 {
@@ -15,10 +16,53 @@ namespace ChatBotProject
     {
         [Command("announce")] // let's define this method as a command
         [Description("Manage the announcer everytime someone joins")] // this will be displayed to tell users what this command does when they invoke help
-        public override async Task OperateCommand(CommandContext ctx, params string[] args) // this command takes no arguments
+        public async Task AnnounceCommand(CommandContext ctx, string subparams1, string subparams2, params string[] otherargs) // this command takes no arguments
         {
             await base.OperateCommand(ctx);
-            string argumentType = args[0];
+            await CommandOperable(ctx, subparams1, subparams2, convertArgumentsToOtherArgs(otherargs));
+        }
+
+        [Command("announce")]
+        [Description("Manage the announcer everytime someone joins")]
+        public async Task AnnounceCommand(CommandContext ctx, string subparams1, string subparams2, string otherargs)
+        {
+            await base.OperateCommand(ctx);
+            await CommandOperable(ctx, subparams1, subparams2, otherargs);
+        }
+
+        [Command("announce")]
+        [Description("Manage the announcer everytime someone joins")]
+        public async Task AnnounceCommand(CommandContext ctx, string subparams1, string subparams2)
+        {
+            await base.OperateCommand(ctx);
+            await CommandOperable(ctx, subparams1, subparams2, null);
+        }
+
+        [Command("announce")]
+        [Description("Manage the announcer everytime someone joins")]
+        public async Task AnnounceCommand(CommandContext ctx, string subparams1)
+        {
+            await base.OperateCommand(ctx);
+            await CommandOperable(ctx, subparams1, null, null);
+        }
+
+        [Command("announce")]
+        [Description("Manage the anouncer everytime someone joins")]
+        public async Task AnnounceCommand(CommandContext ctx)
+        {
+            await base.OperateCommand(ctx);
+            await CommandOperable(ctx, null, null, null);
+        }
+
+        public string convertArgumentsToOtherArgs(string[] arguments)
+        {
+            //Convert string arguments to a single string
+            return string.Join(" ", arguments);
+        }
+
+        public async Task CommandOperable(CommandContext ctx, string subparams1, string subparams2, string otherargs)
+        {
+            //Currently its not possible for commands to input "otherargs" as the command handler will interpret one word as the whole string as thats what it thinks!
             guildData specificGuild = Utils.returnGuildData(ctx.Guild.Id);
 
             List<DiscordEmoji> emojis = new List<DiscordEmoji>();
@@ -28,9 +72,9 @@ namespace ChatBotProject
             Random rnd = new Random();
             var emoji = emojisFiltered[rnd.Next(emojisFiltered.Count)];
 
-            if (args.Length > 0)
+            if (subparams1 != null)
             {
-                switch (argumentType.ToLower())
+                switch (subparams1.ToLower())
                 {
                     case "demo":
                         //Bring up a version of the put command
@@ -49,56 +93,61 @@ namespace ChatBotProject
                         await ctx.RespondAsync("", false, embedMessageBot);
                         break;
                     case "set":
-                        switch (args[1].ToLower())
+                        if (subparams2 != null)
                         {
-                            case "user":
-                                //Set the user join message
-                                if (args[2] != null || !args[2].Contains(string.Empty))
-                                {
-                                    //string afterwardsMessage = string.Join()
-                                    specificGuild.AnnounceFormatUser = string.Join(" ", args).Substring(args[1].Length + args[2].Length);
-                                    await ctx.RespondAsync("Changed the announcer message for the user. TO see what it looks like try ';;announce demo'");
-                                }
-                                else
-                                {
-                                    await ctx.RespondAsync("No message was defined!");
-                                }
-                                break;
-                            case "bot":
-                                if (args[2] != null || !args[2].Contains(string.Empty))
-                                {
-                                    specificGuild.AnnounceFormatBot = string.Join(" ", args).Substring(args[1].Length + args[2].Length);
-                                    await ctx.RespondAsync("Changed the announcer message for the bot. To see what it looks like try ';;announce demo'");
-                                }
-                                else
-                                {
-                                    await ctx.RespondAsync("No message was defined!");
-                                }
-                                break;
-                            case "description":
-                                if (args[2] != null || !args[2].Contains(string.Empty))
-                                {
-                                    specificGuild.AnnounceFormatDesc = string.Join(" ", args).Substring(args[1].Length + args[2].Length);
-                                    await ctx.RespondAsync("Changed the description message for the bot. To see what it looks like try ';;announce demo'");
-                                }
-                                else
-                                {
-                                    await ctx.RespondAsync("No message was defined!");
-                                }
-                                break;
-                            default:
-                            case "help":
-                                if (!args[1].ToLower().Contains("help"))
-                                {
-                                    await ctx.RespondAsync("Unable to change as there is either an incorrect command argument(s) or no arguments at all!");
-                                }
-                                Dictionary<string, string> arguments = new System.Collections.Generic.Dictionary<string, string>();
-                                arguments.Add(";;announce set user <message>", "sets the user greeting (use {user} to be replaced with thier username)");
-                                arguments.Add(";;announce set bot <message>", "sets the bot greeting (use {bot} to be replaced with the bot username)");
-                                arguments.Add(";;announce set description <message>", "sets the greeting for both messages (use {guildname} to be replaced with the guild name)");
-                                DiscordEmbed embed = JosephineEmbedBuilder.CreateEmbedMessage(ctx, "Sub-Commands", "for ';;announce set'", null, JosephineBot.defaultColor, arguments);
-                                await ctx.RespondAsync("Go to http://discord.rickasheye.xyz/ for all sub-commands", false, embed);
-                                break;
+                            switch (subparams2.ToLower())
+                            {
+                                case "user":
+                                    //Set the user join message
+                                    if (otherargs != null ? !otherargs.Contains(string.Empty) : false)
+                                    {
+                                        specificGuild.AnnounceFormatUser = otherargs;
+                                        await ctx.RespondAsync("Changed the announcer message for the user. TO see what it looks like try ';;announce demo'");
+                                    }
+                                    else
+                                    {
+                                        await ctx.RespondAsync("No message was defined!");
+                                    }
+                                    break;
+                                case "bot":
+                                    if (otherargs != null ? !otherargs.Contains(string.Empty) : false)
+                                    {
+                                        specificGuild.AnnounceFormatBot = otherargs;
+                                        await ctx.RespondAsync("Changed the announcer message for the bot. To see what it looks like try ';;announce demo'");
+                                    }
+                                    else
+                                    {
+                                        await ctx.RespondAsync("No message was defined!");
+                                    }
+                                    break;
+                                case "description":
+                                    if (otherargs != null ? !otherargs.Contains(string.Empty) : false)
+                                    {
+                                        specificGuild.AnnounceFormatDesc = otherargs;
+                                        await ctx.RespondAsync("Changed the description message for the bot. To see what it looks like try ';;announce demo'");
+                                    }
+                                    else
+                                    {
+                                        await ctx.RespondAsync("No message was defined!");
+                                    }
+                                    break;
+                                case "tips":
+                                    Dictionary<string, string> titles = new System.Collections.Generic.Dictionary<string, string>();
+                                    titles.Add("{bot}", "To display the name of the bot joining the server.");
+                                    titles.Add("{guildname}", "To display the name of the guild.");
+                                    titles.Add("{user}", "To display the name of the user joining the server");
+                                    DiscordEmbed embedMessageBotM = JosephineEmbedBuilder.CreateEmbedMessage(ctx, "Tips", "Here are some tips for your messages", JosephineBot.BotName, JosephineBot.defaultColor, titles);
+                                    await ctx.RespondAsync("", false, embedMessageBotM);
+                                    break;
+                                default:
+                                case "help":
+                                    await runHelpSet(ctx, subparams2);
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            await runHelpSet(ctx, subparams2);
                         }
                         break;
                     case "off":
@@ -128,7 +177,8 @@ namespace ChatBotProject
                         await runHelp(ctx);
                         break;
                 }
-            } else
+            }
+            else
             {
                 await runHelp(ctx);
             }
@@ -143,6 +193,21 @@ namespace ChatBotProject
             argumentsHelp.Add(";;announce on", "turns the announcer on");
             DiscordEmbed embedHelp = JosephineEmbedBuilder.CreateEmbedMessage(ctx, "Sub-Commands", "for ';;announce set'", null, JosephineBot.defaultColor, argumentsHelp);
             await ctx.RespondAsync("Go to http://discord.rickasheye.xyz/ for all sub-commands", false, embedHelp);
+        }
+
+        public async Task runHelpSet(CommandContext ctx, string subparams2)
+        {
+            if (subparams2 != null && !subparams2.ToLower().Contains("help"))
+            {
+                await ctx.RespondAsync("Unable to change as there is either an incorrect command argument(s) or no arguments at all!");
+            }
+            Dictionary<string, string> arguments = new System.Collections.Generic.Dictionary<string, string>();
+            arguments.Add(";;announce set user <message>", "sets the user greeting (use {user} to be replaced with thier username)");
+            arguments.Add(";;announce set bot <message>", "sets the bot greeting (use {bot} to be replaced with the bot username)");
+            arguments.Add(";;announce set description <message>", "sets the greeting for both messages (use {guildname} to be replaced with the guild name)");
+            arguments.Add(";;announce set tips", "gives the user tips on info on how to use this function");
+            DiscordEmbed embed = JosephineEmbedBuilder.CreateEmbedMessage(ctx, "Sub-Commands", "for ';;announce set'", null, JosephineBot.defaultColor, arguments);
+            await ctx.RespondAsync("Go to http://discord.rickasheye.xyz/ for all sub-commands", false, embed);
         }
     }
 }
